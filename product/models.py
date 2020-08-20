@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+# Here are the models of product app
 class Category(models.Model):
     STATUS=(
         ('True','True'),
