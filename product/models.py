@@ -1,7 +1,10 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.utils.html import mark_safe
 
 # Create your models here.
 # Here are the models of product app
+#Categry models to store all the categories available
 class Category(models.Model):
     STATUS=(
         ('True','True'),
@@ -20,6 +23,8 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+
+#product model to store all the products available product have many to one relationship with category model
 class Product(models.Model):
     STATUS=(
         ('True','True'),
@@ -33,11 +38,26 @@ class Product(models.Model):
     price=models.FloatField()
     amount=models.IntegerField()
     minamount=models.IntegerField()
-    detail=models.TextField()
+    detail=RichTextUploadingField()
     slug=models.SlugField()
     status=models.CharField(max_length=10,choices=STATUS)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+
     def __str__(self):
         return self.title
+
+
+#model to store images  of a product
+class Images(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    title=models.CharField(max_length=50,blank=True)
+    image=models.ImageField(blank=True,upload_to='images/')
+
+    def __str__(self):
+        return self.title
+
+
