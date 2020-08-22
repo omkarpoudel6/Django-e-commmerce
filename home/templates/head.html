@@ -4,7 +4,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>E-SHOP HTML Template</title>
+	<title>{% block title %}{{setting.title}}{% endblock %}</title>
+	<meta name="keywords" context="{% block keywords %}{{setting.keywords}}{%endblock%}">
+	<meta name="description" context="{% block description %}{{setting.description}}{%endblock%}">
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">

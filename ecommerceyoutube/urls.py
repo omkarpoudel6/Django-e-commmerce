@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from home.views import AboutUs,ContactUs
 
 urlpatterns = [
     path('',include('home.urls')),
+    path('aboutus',AboutUs,name="aboutus"),
+    path('contactus',ContactUs,name='contactus'),
     path('product/',include('product.urls')),
     path('admin/', admin.site.urls),
     path('home/',include('home.urls')),
