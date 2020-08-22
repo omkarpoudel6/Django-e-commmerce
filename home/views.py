@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from home.models import Setting
+from home.forms import ContactForm
 
 # Create your views here.
 def index(request):
@@ -19,8 +20,10 @@ def AboutUs(request):
     return render(request,'about.html',context)
 
 def ContactUs(request):
+    contactform=ContactForm()
     setting = Setting.objects.get(pk=1)
     context = {
-        'setting': setting
+        'setting': setting,
+        'form':contactform
     }
     return render(request, 'contactus.html', context)
