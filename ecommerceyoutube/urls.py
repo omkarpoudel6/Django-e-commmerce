@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from home.views import AboutUs,ContactUs,category_products
+from home.views import AboutUs,ContactUs,category_products,product_detail
 
 urlpatterns = [
     path('',include('home.urls')),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('contactus',ContactUs,name='contactus'),
     path('product/',include('product.urls')),
     path('category/<int:id>/<slug:slug>',category_products,name="category_products"),
+    path('product/<int:id>/<slug:slug>',product_detail,name="product_detail"),
     path('admin/', admin.site.urls),
     path('home/',include('home.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),

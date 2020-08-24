@@ -9,10 +9,12 @@ from home.forms import ContactForm
 def index(request):
     setting=Setting.objects.get(pk=1)
     category=Category.objects.all()
+    products_slider=Product.objects.all().order_by('-id')[:5]
     context={
         'setting':setting,
         'page':'home',
-        'category':category
+        'category':category,
+        'products_slider':products_slider
     }
     return render(request,'index.html',context)
 
@@ -47,6 +49,14 @@ def ContactUs(request):
 
 def category_products(request,id,slug):
     products=Product.objects.filter(category_id=id)
+    print(products)
+    # context = {
+    #     'product':products
+    # }
+    return HttpResponse(products)
+
+def product_detail(request,id,slug):
+    products=Product.objects.get(id=id)
     print(products)
     # context = {
     #     'product':products
