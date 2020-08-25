@@ -9,12 +9,16 @@ from home.forms import ContactForm
 def index(request):
     setting=Setting.objects.get(pk=1)
     category=Category.objects.all()
-    products_slider=Product.objects.all().order_by('-id')[:5]
+    products_slider=Product.objects.all().order_by('id')[:5]#for slider
+    latest_products=Product.objects.all().order_by('-id')[:4]#latest products
+    random_products=Product.objects.all().order_by('?')[:4]#random products
     context={
         'setting':setting,
         'page':'home',
         'category':category,
-        'products_slider':products_slider
+        'products_slider':products_slider,
+        'latest_products':latest_products,
+        'random_products':random_products
     }
     return render(request,'index.html',context)
 
@@ -62,3 +66,7 @@ def product_detail(request,id,slug):
     #     'product':products
     # }
     return HttpResponse(products)
+
+def AddToCart(request,id):
+    product=Product.objects.get(id=id)
+    return HttpResponse(product)
