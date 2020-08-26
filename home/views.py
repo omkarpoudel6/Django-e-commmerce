@@ -25,8 +25,10 @@ def index(request):
 
 def AboutUs(request):
     setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
     context = {
-        'setting': setting
+        'setting':setting,
+        'category':category
     }
     return render(request,'about.html',context)
 
@@ -45,23 +47,25 @@ def ContactUs(request):
             return HttpResponseRedirect('/contactus')
     contactform=ContactForm()
     setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
     context = {
         'setting': setting,
-        'form':contactform
+        'form':contactform,
+        'category':category
     }
     return render(request, 'contactus.html', context)
 
 def category_products(request,id,slug):
     products=Product.objects.filter(category_id=id)
-    print(products)
-    # context = {
-    #     'product':products
-    # }
-    return HttpResponse(products)
+    category = Category.objects.all()
+    context={
+        'products':products,
+        'category':category
+    }
+    return render(request,'category_product.html',context)
 
 def product_detail(request,id,slug):
     products=Product.objects.get(id=id)
-    print(products)
     # context = {
     #     'product':products
     # }
