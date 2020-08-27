@@ -12,3 +12,7 @@ class ContactForm(forms.ModelForm):
             'message':forms.Textarea(attrs={'class':'form-control','rows':'5'})
         }
 
+
+class SearchForm(forms.Form):
+    query=forms.CharField(max_length=100,required=True)
+    catid=forms.IntegerField()

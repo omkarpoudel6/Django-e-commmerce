@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from home.models import Setting,ContactMessage
 from product.models import Category,Product
-from home.forms import ContactForm
+from home.forms import ContactForm,SearchForm
 
 # Create your views here.
 def index(request):
@@ -60,17 +60,38 @@ def category_products(request,id,slug):
     category = Category.objects.all()
     context={
         'products':products,
-        'category':category
+        'category':category,
+        'title':slug,
     }
     return render(request,'category_product.html',context)
 
 def product_detail(request,id,slug):
     products=Product.objects.get(id=id)
-    # context = {
-    #     'product':products
-    # }
     return HttpResponse(products)
 
 def AddToCart(request,id):
     product=Product.objects.get(id=id)
     return HttpResponse(product)
+
+
+def search(request):
+    if request.method=="POST":
+        print("Form submitted")
+        search_form=SearchForm(request.POST)
+        if search_form.is_valid():
+            query=search_form.cleaned_data['query']
+            catid=search_form.cleaned_data['catid']
+            print(query)
+            print(catid)
+            if catid==0:
+                products=Product.objects.filter(title__icontains=query) #SELECT * FROM Product WHERE title LIKE %query%
+            else:
+                products=Product.objects.filter(title__icontains=query,category_id=catid)
+            category=Category.objects.all()
+            context={
+                'products':products,
+                'category':category,
+                'query':query,
+            }
+            return render(request,'search_product.html',context)
+    return HttpResponseRedirect('/')
