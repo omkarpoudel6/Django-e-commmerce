@@ -4,6 +4,7 @@ from django.shortcuts import render
 from home.models import Setting,ContactMessage
 from product.models import Category,Product
 from home.forms import ContactForm,SearchForm
+import json
 
 # Create your views here.
 def index(request):
@@ -95,3 +96,18 @@ def search(request):
             }
             return render(request,'search_product.html',context)
     return HttpResponseRedirect('/')
+
+def search_auto(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        places = Product.objects.filter(title__icontains=q)
+        results = []
+        for pl in places:
+            product_json = {}
+            product_json = pl.title
+            results.append(product_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)

@@ -28,6 +28,7 @@ urlpatterns = [
     path('product/<int:id>/<slug:slug>',product_detail,name="product_detail"),
     path('addtocart/<int:id>',AddToCart,name='add_to_cart'),
     path('search/',search,name="search"),
+    path('search_auto/',search_auto,name='search_auto'),
     path('admin/', admin.site.urls),
     path('home/',include('home.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
