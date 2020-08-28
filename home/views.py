@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from home.models import Setting,ContactMessage
-from product.models import Category,Product
+from product.models import Category,Product,Images
 from home.forms import ContactForm,SearchForm
 import json
 
@@ -68,7 +68,14 @@ def category_products(request,id,slug):
 
 def product_detail(request,id,slug):
     products=Product.objects.get(id=id)
-    return HttpResponse(products)
+    category=Category.objects.all()
+    images=Images.objects.filter(product_id=id)
+    context={
+        'category':category,
+        'product':products,
+        'images':images,
+    }
+    return render(request,'product_detail.html',context)
 
 def AddToCart(request,id):
     product=Product.objects.get(id=id)
