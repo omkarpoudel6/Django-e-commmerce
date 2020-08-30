@@ -31,7 +31,7 @@ urlpatterns = [
     path('search_auto/',search_auto,name='search_auto'),
     path('admin/', admin.site.urls),
     path('home/',include('home.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls'))
 
 ]
 if settings.DEBUG:

@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from home.models import Setting,ContactMessage
 from product.models import Category,Product,Images
 from home.forms import ContactForm,SearchForm
+from product.models import Review
 import json
 
 # Create your views here.
@@ -70,10 +71,12 @@ def product_detail(request,id,slug):
     products=Product.objects.get(id=id)
     category=Category.objects.all()
     images=Images.objects.filter(product_id=id)
+    reviews=Review.objects.filter(product_id=id,status='True').order_by('-created_at')
     context={
         'category':category,
         'product':products,
         'images':images,
+        'reviews':reviews
     }
     return render(request,'product_detail.html',context)
 
@@ -118,3 +121,6 @@ def search_auto(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+

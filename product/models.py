@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils.html import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+from django.contrib.auth.models import User
 
 # Create your models here.
 # Here are the models of product app
@@ -79,5 +80,25 @@ class Images(models.Model):
 
     def __str__(self):
         return self.title
+
+#model to store review for product
+class Review(models.Model):
+    STATUS=(
+        ('New','New'),
+        ('True','True'),
+        ('False','False'),
+    )
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    subject=models.CharField(max_length=50,blank=True)
+    comment=models.CharField(max_length=250,blank=True)
+    rating=models.IntegerField(default=1)
+    ip=models.CharField(max_length=20,blank=True)
+    status=models.CharField(max_length=10,choices=STATUS,default='New')
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject
 
 
