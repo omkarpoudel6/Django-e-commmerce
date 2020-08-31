@@ -18,20 +18,26 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from home.views import *
+from order.views import shopcart
 
 urlpatterns = [
     path('',include('home.urls')),
+    path('home/',include('home.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('product/',include('product.urls')),
+    path('order/',include('order.urls')),
+    path('admin/', admin.site.urls),
+
     path('aboutus',AboutUs,name="aboutus"),
     path('contactus',ContactUs,name='contactus'),
-    path('product/',include('product.urls')),
     path('category/<int:id>/<slug:slug>',category_products,name="category_products"),
     path('product/<int:id>/<slug:slug>',product_detail,name="product_detail"),
     path('addtocart/<int:id>',AddToCart,name='add_to_cart'),
     path('search/',search,name="search"),
     path('search_auto/',search_auto,name='search_auto'),
     path('admin/', admin.site.urls),
-    path('home/',include('home.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls'))
+    path('shopcart/',shopcart,name='shopcart')
+
 
 ]
 if settings.DEBUG:
