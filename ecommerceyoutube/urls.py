@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from home.views import *
 from order.views import shopcart
+from user.views import login_form,signup,logout_func
 
 urlpatterns = [
     path('',include('home.urls')),
@@ -37,7 +38,10 @@ urlpatterns = [
     path('search/',search,name="search"),
     path('search_auto/',search_auto,name='search_auto'),
     path('admin/', admin.site.urls),
-    path('shopcart/',shopcart,name='shopcart')
+    path('shopcart/',shopcart,name='shopcart'),
+    path('login/',login_form,name='login'),
+    path('signup/',signup,name='signup'),
+    path('logout/',logout_func,name='logout'),
 
 
 ]
