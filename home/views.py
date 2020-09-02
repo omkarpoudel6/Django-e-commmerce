@@ -5,6 +5,7 @@ from home.models import Setting,ContactMessage
 from product.models import Category,Product,Images
 from home.forms import ContactForm,SearchForm
 from product.models import Review
+from user.models import UserProfile
 import json
 
 # Create your views here.
@@ -20,7 +21,7 @@ def index(request):
         'category':category,
         'products_slider':products_slider,
         'latest_products':latest_products,
-        'random_products':random_products
+        'random_products':random_products,
     }
     return render(request,'index.html',context)
 
