@@ -42,3 +42,4 @@ class ProfileUpdateForm(forms.ModelForm):
             'country':forms.TextInput(attrs={'class':'form-control','placeholder':'country'}),
             'image':forms.FileInput(attrs={'class':'form-control','placeholder':'image'})
         }
+
