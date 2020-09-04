@@ -3,5 +3,6 @@ from order.views import *
 
 urlpatterns=[
     path('addtoshopcart/<int:id>',addtoshopcart,name="addtoshopcart"),
-    path('deletefromcart/<int:id>',deletefromcart,name="deletefromcart")
+    path('deletefromcart/<int:id>',deletefromcart,name="deletefromcart"),
+    path('orderproduct/',orderproduct,name='orderproduct')
 ]
