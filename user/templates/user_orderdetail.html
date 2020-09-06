@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Order Detail{% endblock %}
+{% block header %}{% include 'header.html' %}{% endblock %}
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block side %}
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">Order Detail</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+		<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-3">
+					{% include 'user_panel.html' %}
+				</div>
+				<div class="col-md-9">
+						<div class="order-summary clearfix">
+							<div class="section-title">
+								<h3 class="title">Your Order Detail</h3>
+							</div>
+							<table class="shopping-cart-table table">
+								<tr>
+									<th class="text-left">Name</th>
+									<td class="text-left">{{order.first_name}} {{order.last_name}}</td>
+								</tr>
+								<tr>
+									<th class="text-left">Phone</th>
+									<td class="text-left">{{order.phone}}</td>
+								</tr>
+								<tr>
+									<th class="text-left">Address</th>
+									<td class="text-left">{{order.address}}</td>
+								</tr>
+								<tr>
+									<th class="text-left">City</th>
+									<td class="text-left">{{order.city}}</td>
+								</tr>
+								<tr>
+									<th class="text-left">Country</th>
+									<td class="text-left">{{order.country}}</td>
+								</tr>
+								<tr>
+									<th class="text-left">Status</th>
+									<td class="text-left">{{order.status}}</td>
+								</tr>
+								<tr>
+									<th class="text-left">Date</th>
+									<td class="text-left">{{order.created_at}}</td>
+								</tr>
+								<tr>
+									<th class="text-left">Shipping Info</th>
+									<td class="text-left">{{order.adminnote}}</td>
+								</tr>
+							</table>
+
+							<div class="section-title">
+								<h4 class="shopping-cart-table table"></h4>
+							</div>
+
+							<table class="shopping-cart-table table">
+								<tr>
+									<th class="text-left">ID</th>
+									<th class="text-left">Product Name</th>
+									<th class="text-left">Price</th>
+									<th class="text-center">Quantity</th>
+									<th class="text-left">Amount</th>
+									<th class="text-left">Status</th>
+									<th class="text-left">Date</th>
+								</tr>
+								{% for order in orderitems %}
+									<tr>
+										<td class="text-left">
+											<a href="/product/{{order.product_id}}/{{order.product.slug}}">
+												<img src="{{order.product.image.url}}" height="80">
+											</a>
+										</td>
+										<td class="text-left">{{order.product.title}}</td>
+										<td class="text-left">{{order.price}}</td>
+										<td class="text-left">{{order.quantity}}</td>
+										<td class="text-left">{{order.amount}}</td>
+										<td class="text-left">{{order.status}}</td>
+										<td class="text-left">{{order.created_at}}</td>
+									</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+{% endblock %}
+{% block footer %}{% include 'footer.html' %}{% endblock %}
