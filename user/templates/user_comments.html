@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Comments{% endblock %}
+{% block header %}{% include 'header.html' %}{% endblock %}
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block side %}
+
+	<style>
+		table,th,td{
+			border:10px solid white;
+		}
+	</style>
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">User Comments</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+		<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-2">
+					{% include 'user_panel.html' %}
+				</div>
+				<div class="col-md-10">
+					<div class="section-title">
+						<h3 class="title">Your Comments</h3>
+					</div>
+
+					<table class="shopping-cart-table table" style="border:3px solid white;">
+						<tr>
+							<th class="text-left">Product </th>
+							<th class="text-left">Rate </th>
+							<th class="text-left">subject </th>
+							<th class="text-left">comment </th>
+							<th class="text-left">status </th>
+							<th class="text-left">Date </th>
+						</tr>
+						{% for rs in comments %}
+							<tr>
+								<td class="text-left">
+									<a href="/product/{{rs.product_id}}/{{rs.product.slug}}">
+										<strong> {{ rs.product.title}} </strong>
+									</a>
+								</td>
+								<td class="text-left">{{ rs.rating}}</td>
+								<td class="text-left">{{ rs.subject}}</td>
+								<td class="text-left">{{ rs.comment}}</td>
+								<td class="text-left">{{ rs.status}}</td>
+								<td class="text-left">{{ rs.created_at}}</td>
+								<td class="text-left">
+									<a class="primary-btn" href="/user/deletecomment/{{rs.id}}" onclick="return confirm('Are you sure.. you want to delete??')"> Delete </a>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+{% endblock %}
+{% block footer %}{% include 'footer.html' %}{% endblock %}

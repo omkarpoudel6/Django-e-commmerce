@@ -8,5 +8,7 @@ urlpatterns=[
     path('orders/',user_orders,name='user_orders'),
     path('ordered_products/',ordered_products,name='ordered_products'),
     path('ordered_product_detail/<int:id>/<int:oid>',ordered_product_detail,name='ordered_product_detail'),
-    path('orderdetail/<int:id>/',order_detail,name='order_detail')
+    path('orderdetail/<int:id>/',order_detail,name='order_detail'),
+    path('comments/',user_comments,name='user_comments'),
+    path('deletecomment/<int:id>/',user_deletecomment,name='user_deletecomment')
 ]
