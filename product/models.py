@@ -1,5 +1,6 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.db.models import Avg, Count
 from django.urls import reverse
 from django.utils.html import mark_safe
 from mptt.fields import TreeForeignKey
@@ -67,6 +68,20 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('category_detail',kwars={'slug':self.slug})
+
+    def averagereview(self):
+        reviews=Review.objects.filter(product=self, status='True').aggregate(average=Avg('rating'))
+        avg=0
+        if reviews['average'] is not None:
+            avg=float(reviews['average'])
+        return avg
+
+    def countreview(self):
+        reviews=Review.objects.filter(product=self, status='True').aggregate(count=Count('id'))
+        cnt=0
+        if reviews['count'] is not None:
+            cnt=int(reviews['count'])
+        return cnt
 
     def __str__(self):
         return self.title
