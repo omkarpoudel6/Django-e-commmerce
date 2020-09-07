@@ -49,3 +49,19 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class FAQ(models.Model):
+    STATUS=(
+        ('True','True'),
+        ('False','False'),
+    )
+    ordernumber=models.IntegerField()
+    question=models.CharField(max_length=200)
+    answer=models.TextField()
+    status=models.CharField(max_length=10,choices=STATUS)
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.question

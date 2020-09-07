@@ -19,7 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from home.views import *
 from order.views import shopcart
-from user.views import login_form,signup,logout_func
+from user.views import login_form,signup,logout_func,faq
+
 
 urlpatterns = [
     path('',include('home.urls')),
@@ -42,6 +43,7 @@ urlpatterns = [
     path('login/',login_form,name='login'),
     path('signup/',signup,name='signup'),
     path('logout/',logout_func,name='logout'),
+    path('faq/',faq,name='faq')
 
 
 ]

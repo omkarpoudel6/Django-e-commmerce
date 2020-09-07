@@ -13,3 +13,8 @@ class ContactMessageAdmin(admin.ModelAdmin):
     readonly_fields = ('name','subject','email','message','ip')
     list_filter=['status']
 
+class FAQAdmin(admin.ModelAdmin):
+    list_display=['question','answer','ordernumber','status']
+    list_filter=['status']
+
+admin.site.register(FAQ,FAQAdmin)
