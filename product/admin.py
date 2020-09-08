@@ -1,7 +1,8 @@
+import admin_thumbnails
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
 
-from .models import Category,Product,Images,Review
+from .models import Category,Product,Images,Review,Color,Size,Variants
 
 # Register your models here.
 #admin.site.register(Category)
@@ -48,22 +49,48 @@ class CategoryAdmin2(DraggableMPTTAdmin):
     related_products_cumulative_count.short_description = 'Related products (in tree)'
 
 #to add images of product of same page in product model in admin page
+@admin_thumbnails.thumbnail('image')
 class ProductImageInline(admin.TabularInline):
     model=Images
-    extra=5
+    readonly_fields = ('id',)
+    extra=1
+
+class ProductVariantsInline(admin.TabularInline):
+    model=Variants
+    readonly_fields = ('image_tag',)
+    extra=1
+    show_change_link = True
+
+@admin_thumbnails.thumbnail('image')
+class ImagesAdmin(admin.ModelAdmin):
+    list_display=['image','title','image_thumbnail']
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title','category','image_tag','price')
     prepopulated_fields = {'slug':('title',)}
     readonly_fields = ('image_tag',)
-    inlines=[ProductImageInline]
+    inlines=[ProductImageInline,ProductVariantsInline]
+    prepopulated_fields={'slug':('title',)}
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display=['subject','comment','status','created_at']
     list_filter=['status']
     readonly_fields = ('subject','comment','ip','user','product','rating')
 
-admin.site.register(Images)
+class ColorAdmin(admin.ModelAdmin):
+    list_display=['name','code','color_tag']
+
+class SizeAdmin(admin.ModelAdmin):
+    list_display=['name','code']
+
+class VariantsAdmin(admin.ModelAdmin):
+    list_display=['title','product','color','size','price','quantity','image_tag']
+
+admin.site.register(Images,ImagesAdmin)
 admin.site.register(Category,CategoryAdmin2)
 admin.site.register(Review,ReviewAdmin)
+admin.site.register(Color,ColorAdmin)
+admin.site.register(Size,SizeAdmin)
+admin.site.register(Variants,VariantsAdmin)
