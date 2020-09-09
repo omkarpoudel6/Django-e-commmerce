@@ -105,7 +105,7 @@ def product_detail(request,id,slug):
 
 def ajaxcolor(request):
     data={}
-    if request.POST.get('action')=='post':
+    if request.POST.get('action') == 'post':
         size_id=request.POST.get('size')
         productid=request.POST.get('productid')
         colors=Variants.objects.filter(product_id=productid, size_id=size_id)
@@ -115,7 +115,7 @@ def ajaxcolor(request):
             'colors':colors,
         }
         data={
-            'render_table':render_to_string('color_list.html',context=context)
+            'rendered_table':render_to_string('color_list.html',context=context)
         }
         return JsonResponse(data)
     return JsonResponse(data)

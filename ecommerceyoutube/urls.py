@@ -43,7 +43,8 @@ urlpatterns = [
     path('login/',login_form,name='login'),
     path('signup/',signup,name='signup'),
     path('logout/',logout_func,name='logout'),
-    path('faq/',faq,name='faq')
+    path('faq/',faq,name='faq'),
+    path('ajaxcolor',ajaxcolor,name='ajaxcolor'),
 
 
 ]
