@@ -101,12 +101,36 @@
 
 							<div class="product-btns">
 								<div class="row">
-									{% for size in sizes %}
-										{{size.title}}
-									{% endfor %}
-									{% for color in colors %}
-										{{color.title}}
-									{% endfor %}
+									<div class="product-options">
+										{% if product.variant == 'Size-Color' %}
+											<ul class="size-option">
+												<li><span class="text-uppercase">Size:</span></li>
+												{% for size in sizes %}
+												<li><input name="size" value="size_id">{{size.size}}</a></li>
+												{% endfor %}
+											</ul>
+										<ul class="color-option">
+											<li><span class="text-uppercase">Color:</span></li>
+											{% for color in colors %}
+											<li><a href="#" style="background-color:{{color.color}};"></a></li>
+											{% endfor %}
+										</ul>
+										{% elif product.variant == 'Size' %}
+											<ul class="size-option">
+												<li><span class="text-uppercase">Size:</span></li>
+												{% for size in sizes %}
+												<li><a href="#">{{size.size}}</a></li>
+												{% endfor %}
+											</ul>
+										{% elif product.variant == 'Color' %}
+											<ul class="color-option">
+												<li><span class="text-uppercase">Color:</span></li>
+												{% for color in colors %}
+												<li><a href="#" style="background-color:{{color.color}};"></a></li>
+												{% endfor %}
+											</ul>
+										{% endif %}
+									</div>
 								</div>
 							</div>
 						</div>

@@ -73,6 +73,7 @@ def category_products(request,id,slug):
 def product_detail(request,id,slug):
     query=request.GET.get('q')
     product=Product.objects.get(id=id)
+    print(product.variant)
     category=Category.objects.all()
     images=Images.objects.filter(product_id=id)
     reviews=Review.objects.filter(product_id=id,status='True').order_by('-created_at')
@@ -108,6 +109,8 @@ def ajaxcolor(request):
     if request.POST.get('action') == 'post':
         size_id=request.POST.get('size')
         productid=request.POST.get('productid')
+        print(size_id)
+        print(productid)
         colors=Variants.objects.filter(product_id=productid, size_id=size_id)
         context={
             'size_id':size_id,
