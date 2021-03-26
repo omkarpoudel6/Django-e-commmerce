@@ -40,9 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'product',
-    'ckeditor',
-    'ckeditor_uploader',
-    'mptt',
     'order',
     'user',
 ]
@@ -50,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #'django.middleware.locale.LocalMiddleare',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -110,6 +108,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
+
+LANGUAGES=[
+    ('en', ('English')),
+    ('tr', ('Turkish')),
+]
+
+LOCALE_PATHS=(
+    os.path.join(BASE_DIR,'locale'),
+)
 
 LANGUAGE_CODE = 'en-us'
 
